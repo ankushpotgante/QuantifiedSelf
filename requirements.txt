@@ -1,0 +1,6 @@
+flask
+flask-restful
+flask-sqlalchemy
+sqlalchemy
+matplotlib
+requests

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="margin-top:2%;">
+    
+    <div class="col-md-6" style="border:1px solid grey; padding: 2%;">
+        <div>
+            <h2>Add Tracker</h2>
+            <br>
+            <form action="/tracker/create" method="post">
+            <div class="mb-3">
+                <label for="tname" class="form-label">Name </label>
+                <input type="text" class="form-control" id="tname" name="tname" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description</label>
+                <textarea  class="form-control" id="desc" name="desc" ></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="ttype" class="form-label">Tracker Type</label>
+                <select class="form-select" id="ttype" name="ttype" required>
+                    <option>Numeric</option>
+                    <option>Multiple Choice</option>
+                    <option>Boolean</option>
+                  </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="settings" class="form-label">Settings</label>
+                <input type="text" class="form-control" id="settings" name="settings">
+            </div>
+
+                <input type="submit" class="btn btn-primary" value="Add">
+                <a href="/" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

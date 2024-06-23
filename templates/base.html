@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantified Self</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css.map') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+</head>
+<body>
+
+    <div class="container-fluid">
+
+        {% if session['username'] %}
+        <div class="title">
+            <h2>Hello, {{ session['fname'] }}</h2>
+        </div>
+        
+        <div class="logout">
+            <!-- <a href="/logout" class="btn btn-danger">Logout</a> -->
+            <a href="/logout" class="btn btn-outline-danger ">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+              </a>
+        </div>
+        {% endif %}
+
+        <div class="row">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="alert alert-warning" role="alert">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        </div>
+
+        {% block content %}
+        
+        {% endblock %}
+
+    </div>
+    
+    <!-- js section -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js.map') }}"></script>
+    <script src="{{ url_for('static', filename='js/custom.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="margin-top:5%;">
+    <div class="col-md-6" style="border:1px solid grey; padding: 2%;">
+        <h2>Log - {{ tracker.name }}</h2>
+        <br>
+        <form action="/tracker/{{ tracker.tid }}/log/create/" method="post">
+            {% if tracker.tracker_type == 'Numeric' %}
+            <div class="mb-3">
+                <label class="form-label" for="tnumval">Tracker Value</label>
+                <input type="text" class="form-control" name="tval" id="tnumval" required>
+            </div>
+            {% endif %}
+            {% if tracker.tracker_type == 'Boolean' %}
+            <div class="mb-3">
+                <label class="form-label" for="tval">Tracker Value</label>
+                <br>
+                <input type="radio" class="form-check-input" id="y" name="tval" value="Yes">
+                <label for="y" class="form-label">Yes</label><br>
+                <input type="radio" class="form-check-input" id="n" name="tval" value="No">
+                <label for="n" class="form-label">No</label><br>
+            </div>
+            {% endif %}
+            {% if tracker.tracker_type == 'Multiple Choice' %}
+            <div class="mb-3">
+                <label for="tchval" class="form-label">Tracker Value</label>
+                <select id="tchval" class="form-select" name="tval" required>
+                    {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+            <div class="mb-3">
+                <label for="tnotes" class="form-label">Notes</label>
+                <input type="text" class="form-control" name="tnotes" id="tnotes">
+            </div>
+            <input type="submit" class="btn btn-primary" value="Log It">
+            <a href="/" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

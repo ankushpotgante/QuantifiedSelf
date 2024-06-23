@@ -1,0 +1,495 @@
+openapi: 3.0.0
+info:
+  description: "This is an app to track your daily tasks such as our daily habits or daily tasks                     which needs some kind of tracking for getting useful insights from it."
+  version: 1.0.0
+  title: Quantified Self
+  contact:
+    email: ankush@example.com
+    
+tags:
+  - name: user
+    description: Operations about user
+  - name: tracker
+    description: Everything about trackers
+  - name: log
+    description: All about logging tracker data
+    
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      summary: Create user
+      description: Creating new user
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: Kishor
+                last_name:
+                  type: string
+                  example: Mishra
+                username:
+                  type: string
+                  example: kmishra
+                password:
+                  type: string
+                  example: YourPassword
+                
+        description: User object
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User" 
+        "500":
+          description: Internal server error
+        "400":
+          description: Bad request
+          
+  /user/{uid}:
+    put:
+      tags:
+        - user
+      summary: Update an existing user
+      description: ""
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  example: Narendra
+                last_name:
+                  type: string
+                  example: Mishra
+      parameters:
+        - name: uid
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tracker"
+        "500":
+          description: Internal server error
+        "404":
+          description: Tracker not found
+          
+    get:
+      tags:
+        - user
+      summary: Get user
+      description: getting a user
+      operationId: getUser
+      parameters:
+        - name: uid
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: integer
+        
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "500":
+          description: Internal server error
+        "404":
+          description: User not found
+      
+    delete:
+      tags:
+        - user
+      summary: Delete a user
+      description: ""
+      operationId: deleteUser
+      parameters:
+        - name: uid
+          in: path
+          description: ID of tracker to delete
+          required: true
+          schema:
+            type: integer
+      
+      responses:
+        "200":
+          description: User deleted successfully
+        "500":
+          description: Internal server error
+        "404":
+          description: User not found      
+       
+        
+          
+  /tracker:
+    post:
+      tags:
+        - tracker
+      summary: Add a new tracker
+      description: ""
+      operationId: addTracker
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: integer
+                  example: 2
+                name:
+                  type: string
+                  example: Mood
+                description:
+                  type: string
+                  example: My Mood tracker
+                tracker_type:
+                  type: string
+                  example: Multiple Choice
+                settings:
+                  type: string
+                  example: Happy, Sad, Angry
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tracker"
+        "405":
+          description: Invalid input
+          
+  /tracker/{tid}:
+    put:
+      tags:
+        - tracker
+      summary: Update an existing tracker
+      description: ""
+      operationId: updateTracker
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: My Mood tracker
+                tracker_type:
+                  type: string
+                  example: Multiple Choice
+                settings:
+                  type: string
+                  example: Happy, Sad, Angry
+      parameters:
+        - name: tid
+          in: path
+          description: ID of tracker to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tracker"
+        "500":
+          description: Internal server error
+        "404":
+          description: Tracker not found
+          
+    get:
+      tags:
+        - tracker
+      summary: Get a tracker
+      description: ""
+      operationId: getTracker
+      parameters:
+        - name: tid
+          in: path
+          description: ID of tracker to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tracker"
+        "500":
+          description: Internal server error
+        "404":
+          description: Tracker not found
+          
+    delete:
+      tags:
+        - tracker
+      summary: Delete a tracker
+      description: ""
+      operationId: deleteTracker
+      parameters:
+        - name: tid
+          in: path
+          description: ID of tracker to return
+          required: true
+          schema:
+            type: integer
+      
+      responses:
+        "200":
+          description: Tracker deleted successfully
+        "500":
+          description: Internal server error
+        "404":
+          description: Tracker not found
+          
+  /log:
+    post:
+      tags:
+        - log
+      summary: Add a new log
+      description: ""
+      operationId: addLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tid:
+                  type: integer
+                  example: 2
+                value:
+                  type: string
+                  example: Happy
+                notes:
+                  type: string
+                  example: I am very happy!
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Log"
+        "405":
+          description: Invalid input
+        "500":
+          description: Internal server error
+          
+  /log/{lid}:
+    put:
+      tags:
+        - log
+      summary: Update an existing log
+      description: ""
+      operationId: updateLog
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                value:
+                  type: string
+                  example: Sad
+                notes:
+                  type: string
+                  example: I am so sad!
+      parameters:
+        - name: lid
+          in: path
+          description: ID of log to update
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Log"
+        "500":
+          description: Internal server error
+        "404":
+          description: Log not found
+          
+    get:
+      tags:
+        - log
+      summary: Get a Log
+      description: ""
+      operationId: getLog
+      parameters:
+        - name: lid
+          in: path
+          description: ID of tracker to return
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Log"
+        "500":
+          description: Internal server error
+        "404":
+          description: Tracker not found
+          
+    delete:
+      tags:
+        - log
+      summary: Delete a log
+      description: ""
+      operationId: deleteLog
+      parameters:
+        - name: lid
+          in: path
+          description: ID of log to delete
+          required: true
+          schema:
+            type: integer
+      
+      responses:
+        "200":
+          description: Log deleted successfully
+        "500":
+          description: Internal server error
+        "404":
+          description: Log not found
+               
+  
+servers:
+  - url: http://localhost:5000/api
+  
+components:
+  requestBodies:
+    User:
+      content:
+        application/json:
+          schema:
+              $ref: "#/components/schemas/User"
+      description: User object
+      required: true
+    Tracker:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Tracker"
+      description: Tracker object
+      required: true
+    Log:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Log"
+      description: Log object
+      required: true
+  schemas:
+    User:
+      type: object
+      required:
+        - uid
+        - username
+        - first_name
+        - password
+      properties:
+        uid:
+          type: integer
+        username:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        password:
+          type: string
+        
+    Tracker:
+      type: object
+      required:
+        - tid
+        - uid
+        - name
+        - tracker_type
+        - settings
+      properties:
+        tid:
+          type: integer
+        uid:
+          type: integer
+          description: ID of user creating tracker
+        name:
+          type: string
+        description:
+          type: string
+        tracker_type:
+          type: string
+          description: tracker_type for a tracker
+          enum:
+            - Numeric
+            - Multiple Choice
+            - Boolean
+        settings:
+          type: string
+          description: comma seperated values for options
+          
+    Log:
+      type: object
+      required:
+        - lid
+        - tid
+        - value
+        - log_time
+      properties:
+        lid:
+          type: integer
+        tid:
+          type: integer
+          description: tracker_id
+        value:
+          type: string
+        log_time:
+          type: string
+          format: date-time
+        notes:
+          type: string
+          
+    
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string

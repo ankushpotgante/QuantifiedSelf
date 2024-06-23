@@ -1,0 +1,1 @@
+This is a database directory as we are using sqlite database. In case we used another database this folder may not be in use.

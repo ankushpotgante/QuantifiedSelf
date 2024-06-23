@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center" style="margin-top:2%;">
+    
+    <div class="col-md-6" style="border:1px solid grey; padding: 2%;">
+        <div>
+            <h2>Edit Tracker</h2>
+            <br>
+            <form action="/tracker/{{ tracker.tid }}/edit" method="post">
+            <div class="mb-3">
+                <label for="tname" class="form-label">Name </label>
+                <input type="text" class="form-control" value="{{ tracker.name }}" id="tname" name="tname" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="desc" class="form-label">Description</label>
+                <textarea  class="form-control" id="desc" name="desc" >{{ tracker.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="ttype" class="form-label">Tracker Type</label>
+                <select class="form-select" id="ttype" name="ttype" required>
+                    <option value="Numeric" {% if tracker.tracker_type == 'Numeric' %} selected {%endif%}>Numeric</option>
+                    <option value="Multiple Choice" {% if tracker.tracker_type == 'Multiple Choice' %} selected {%endif%}>Multiple Choice</option>
+                    <option value="Boolean" {% if tracker.tracker_type == 'Boolean' %} selected {%endif%}>Boolean</option>
+                  </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="settings" class="form-label">Settings</label>
+                <input type="text" class="form-control" id="settings" value="{{ tracker.settings }}" name="settings">
+            </div>
+
+                <input type="submit" class="btn btn-primary" value="Update">
+                <a href="/" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
