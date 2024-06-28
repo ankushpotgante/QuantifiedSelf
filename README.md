@@ -3,7 +3,7 @@
 ## Introduction
 
 Quantified Self is a habit tracking application. In this app you can track your habits on frequencies of your choice and can monitor performance of those.
-It is build using flask and flask restful as backend framework and sqlite for database.
+It is built using flask and flask restful as backend framework and sqlite for database. Html templetes written using Jinja2 are used in frontend.
 
 ## Installation
 
