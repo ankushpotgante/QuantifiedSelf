@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantified Self</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+    <script src="{{ url_for('static', filename='vue/vue2.js') }}"></script>
+    <script src="{{ url_for('static', filename='vue/vue-router3.js') }}"></script>
+</head>
+<body>
+
+    {% raw %}
+    <div id="app" class="container-fluid">
+        
+        <div v-if="access_token">
+
+            <div class="title">
+                <h2>Hello, {{ fname }}</h2>
+            </div>
+            
+            <div class="logout">
+                <a @click="sign_out" class="btn btn-outline-danger ">
+                    <span class="glyphicon glyphicon-log-out"></span> Log out
+                </a>
+            </div>
+
+            <div v-if="message" class="row">   
+                <p class="alert alert-warning" role="alert">{{ message }}</p> 
+            </div>
+
+        </div>
+
+        <router-view @set_data="set_data" @sign_out="sign_out" @set_message="set_message"></router-view>
+        
+    </div>
+
+    {% endraw %}
+
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/echarts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/echarts.js.map') }}"></script>
+</body>
+</html>

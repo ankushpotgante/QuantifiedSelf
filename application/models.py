@@ -5,6 +5,7 @@ class User(db.Model):
     uid = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String, nullable=False)
     last_name = db.Column(db.String)
+    email = db.Column(db.String, unique=True, nullable=False)
     username = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
@@ -20,6 +21,7 @@ class Tracker(db.Model):
     description = db.Column(db.String)
     tracker_type = db.Column(db.String, nullable=False)
     settings = db.Column(db.String)
+    last_tracked = db.Column(db.TIMESTAMP, nullable=True)
 
     logs = db.relationship('Log', backref='trkr', lazy='dynamic',
                            cascade='all, delete-orphan', passive_deletes=True)
